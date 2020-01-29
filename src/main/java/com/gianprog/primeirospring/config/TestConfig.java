@@ -7,13 +7,13 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Configuration;
 
 import com.gianprog.primeirospring.entities.User;
-import com.gianprog.primeirospring.repositories.UserRepositoty;
+import com.gianprog.primeirospring.repositories.UserRepository;
 
 @Configuration
 public class TestConfig implements CommandLineRunner {
 	
 	@Autowired
-	private UserRepositoty userRepository;
+	private UserRepository userRepository;
 
 	@Override
 	public void run(String... args) throws Exception {
