@@ -6,6 +6,7 @@ import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.gianprog.primeirospring.entities.pk.OrderItempk;
 @Entity
 @Table(name = "tb_order_item")
@@ -13,7 +14,7 @@ public class OrderItem implements Serializable {
 	private static final long serialVersionUID = 1L;
 	
 	@EmbeddedId	
-	private OrderItempk id;
+	private OrderItempk id = new OrderItempk();
 	private Integer quantity;
 	private Double price;
 	
@@ -27,7 +28,8 @@ public class OrderItem implements Serializable {
 		this.quantity = quantity;
 		this.price = price;
 	}
-
+	
+	@JsonIgnore
 	public Order getOrder() {
 		return id.getOrder();
 	}
