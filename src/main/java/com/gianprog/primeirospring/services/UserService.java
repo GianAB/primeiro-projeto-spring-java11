@@ -31,4 +31,18 @@ public class UserService {
 	public void delete(Long id) {
 		repository.deleteById(id);
 	}
+	
+	public User update(Long id, User obj ) {
+		//O getOne() não busca do banco de dados ele só prepara o obj monitorado pra vc mexer e depois efetuar uma operação com BD
+		User entity = repository.getOne(id);
+		UpdataData(entity, obj);
+		
+		return repository.save(entity);
+	}
+
+	private void UpdataData(User entity, User obj) {
+		entity.setName(obj.getName());
+		entity.setEmail(obj.getEmail());
+		entity.setPhone(obj.getPhone());
+	}
 }
