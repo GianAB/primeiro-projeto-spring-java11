@@ -3,6 +3,8 @@ package com.gianprog.primeirospring.services;
 import java.util.List;
 import java.util.Optional;
 
+import javax.persistence.EntityNotFoundException;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.dao.EmptyResultDataAccessException;
@@ -50,10 +52,15 @@ public class UserService {
 	public User update(Long id, User obj) {
 		// O getOne() não busca do banco de dados ele só prepara o obj monitorado pra vc
 		// mexer e depois efetuar uma operação com BD
-		User entity = repository.getOne(id);
-		UpdataData(entity, obj);
+		try {
+			User entity = repository.getOne(id);
+			UpdataData(entity, obj);
 
-		return repository.save(entity);
+			return repository.save(entity);
+		
+		} catch (EntityNotFoundException e) {
+			throw new DatabaseException(e.getMessage());
+		}
 	}
 
 	private void UpdataData(User entity, User obj) {
