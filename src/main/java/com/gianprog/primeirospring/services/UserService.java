@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import com.gianprog.primeirospring.entities.User;
 import com.gianprog.primeirospring.repositories.UserRepository;
+import com.gianprog.primeirospring.services.exceptions.ResourceNotFoundException;
 
 @Service
 public class UserService {
@@ -21,7 +22,10 @@ public class UserService {
 	
 	public User findById(Long id) {
 		Optional<User> obj = repository.findById(id);
-		return obj.get();
+		
+		//Tenta dar o get, se não der vai lançar uma exceção.
+		//Usei como parâmetro uma exp. lâmbda que possui o id como parâmetro
+		return obj.orElseThrow(()-> new ResourceNotFoundException(id));
 	}
 	
 	public User insert(User obj) {
